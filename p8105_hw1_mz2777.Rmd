@@ -7,7 +7,7 @@ output: github_document
 
 # Problem 1
 
-## Create the data frame.
+### Create the Dataframe
 
 ```{r, echo = FALSE, include = FALSE}
 library(tidyverse)
@@ -23,7 +23,7 @@ df_p1 = tibble(
 )
 ```
 
-
+### Take the Mean
 Character and factor variables did not work when the `mean` function was applied to them. The erroe messages are as follows.
 
 ```{r take the mean, echo = FALSE, message = TRUE}
@@ -34,6 +34,7 @@ mean_char_vec = mean(pull(df_p1, char_vec))
 mean_fac_vec = mean(pull(df_p1, fac_vec))
 ```
 
+### Applying the `as.numeric` Function
 After applying the `as.numeric` function to the logical, character and factor variables, logical and factor variables are able to be converted to numeric variable. Since unlike character variables, these two kind of variables can be represented by the numbers without losing their logic and meanings. Therefore, this conversion can help explain why the mean value of the character variables can not be calculated.
 
 ```{r, eval = FALSE}
@@ -43,19 +44,23 @@ as.numeric(pull(df_p1, char_vec))
 as.numeric(pull(df_p1, fac_vec))
 ```
 
-## Conversions and Multiplications.
+### Conversions and Multiplications.
 * convert the logical vector to numeric, and multiply the random sample by the result
 * convert the logical vector to a factor, and multiply the random sample by the result
 * convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
 
 ```{r }
+#convert the logical vector to numeric, and multiply the random sample by the result
 as.numeric(pull(df_p1, norm_samp_logical)) * pull(df_p1, norm_samp)
+#convert the logical vector to a factor, and multiply the random sample by the result
 factor(pull(df_p1, norm_samp_logical)) * pull(df_p1, norm_samp)
+#convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
 as.numeric(factor(pull(df_p1, norm_samp_logical))) * pull(df_p1, norm_samp)
 ```
 
 # Problem 2
 
+### Create the Dataframe
 ```{r}
 #create the dataframe
 df_p2 = tibble(
@@ -67,7 +72,7 @@ df_p2 = tibble(
 )
 ```
 
-## Short Description
+### Short Description
 
 A short description of the data frame I have built.
 
@@ -77,19 +82,30 @@ A short description of the data frame I have built.
 * The standard deviation of x is `r sd(df_p2$x)`.
 * The proportion of cases for which x + y > 1 is `r mean(pull(df_p2, logic2num))*100`%.
 
-## Scatterplot
+### Scatterplot
 
-Make a scatterplot of y vs x; color points using the logical variable. Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
+Make a scatterplot of y vs x; color points using the logical variable. Make a second and third scatterplot that color points using the numeric and factor variables, respectively.
+
+#### Color Scale
+We can see from legends that the logical and factor variables are binary, true or false, and there are only two kind of colors in the legends. However, for numeric variable, the legend's rage is from 0 to 1 though there is no value between 0 and 1.
 
 ```{r}
 #color point using the logical variable
-pic1 = ggplot(df_p2, aes(x = x, y = y, color = logic_vec)) + geom_point() + ggtitle("Color points using the logical variable")
-#color point using the numeric variable
-pic2 = ggplot(df_p2, aes(x = x, y = y, color = logic2num)) + geom_point() + ggtitle("Color points using the numeric variable")
-#color point using the factor variable
-pic3 = ggplot(df_p2, aes(x = x, y = y, color = logic2fac)) + geom_point() + ggtitle("Color points using the factor variable")
+pic1 = ggplot(df_p2, aes(x = x, y = y, color = logic_vec)) + 
+  geom_point() + ggtitle("Color points using the logical variable")
+pic1
 
-#save the first scatterplot
+#color point using the numeric variable
+pic2 = ggplot(df_p2, aes(x = x, y = y, color = logic2num)) + 
+  geom_point() + ggtitle("Color points using the numeric variable")
+pic2
+
+#color point using the factor variable
+pic3 = ggplot(df_p2, aes(x = x, y = y, color = logic2fac)) + 
+  geom_point() + ggtitle("Color points using the factor variable")
+pic3
+
+#export the first scatterplot
 ggsave("scatter point.png", plot = pic1)
 ```
 
