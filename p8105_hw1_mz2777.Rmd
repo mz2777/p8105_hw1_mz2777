@@ -84,7 +84,7 @@ A short description of the data frame I have built.
 
 ### Scatterplot
 
-Make a scatterplot of y vs x; color points using the logical variable. Make a second and third scatterplot that color points using the numeric and factor variables, respectively.
+Make scatterplots of y vs x that color points using the logical, numeric and factor variables, respectively.
 
 #### Color Scale
 We can see from legends that the logical and factor variables are binary, true or false, and there are only two kind of colors in the legends. However, for numeric variable, the legend's rage is from 0 to 1 though there is no value between 0 and 1.
